@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqgfp0ehyyuy0"]
+
+[ext_resource type="Texture2D" uid="uid://ca855fsvh3g4b" path="res://Sprites/PortalBlockout/PortalBlockout.png" id="1_e0mgf"]
+[ext_resource type="Script" path="res://Portal/portal.gd" id="1_ebwi5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yg554"]
+radius = 3.0
+height = 22.0
+
+[node name="Portal" type="Area2D"]
+script = ExtResource("1_ebwi5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+shape = SubResource("CapsuleShape2D_yg554")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(13, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_e0mgf")
+flip_h = true
