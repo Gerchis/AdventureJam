@@ -4,18 +4,18 @@
 [ext_resource type="Script" path="res://Portal/portal.gd" id="1_ebwi5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yg554"]
-radius = 3.0
-height = 22.0
+height = 66.0
 
 [node name="Portal" type="Area2D"]
 script = ExtResource("1_ebwi5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 0)
 shape = SubResource("CapsuleShape2D_yg554")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(13, 0)
-scale = Vector2(0.1, 0.1)
+position = Vector2(26, 0)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_e0mgf")
 flip_h = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

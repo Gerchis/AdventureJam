@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uwesx"]
 
-[node name="Character" type="CharacterBody2D"]
+[node name="Character" type="CharacterBody2D" groups=["player", "teleportable"]]
 script = ExtResource("1_qggp3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -6,13 +6,12 @@ const MAX_GRAVITY = 2000
 @export_category("MovementSettings")
 @export var max_speed := 500.0
 @export var accel := 1500.0
-@export var friction := 3000.0
+@export var friction := 2000.0
 @export_category("JumpSettings")
 @export var gravity := 1700.0
 @export var jump_force := 900.0
 @export var jumps_availables := 2
 @export_range(0, 1.0) var min_jump_force := 0.5
-@export var air_friction := 500.0
 
 var movement_direction := 0.0
 var stored_jump := false
@@ -21,6 +20,7 @@ var is_falling : bool :
 	get: return velocity.y > 0
 var jumps_done := 0
 var enable_movement := true
+var stored_velocity_change := Vector2.ZERO
 
 @onready var jump_buffer_timer := $JumpBufferTimer
 @onready var coyote_time := $CoyoteTime
@@ -43,6 +43,8 @@ func _physics_process(delta):
 	apply_jump()
 	jump_check()
 	
+	
+	change_velocity()
 	move_and_slide()
 
 func get_movement_input():
@@ -73,7 +75,6 @@ func get_jump_input():
 
 func apply_jump():
 	if stored_jump and jumps_done < jumps_availables:
-		if jumps_done > 0: velocity.x = 0
 		is_jumping = true
 		stored_jump = false
 		jump_buffer_timer.stop()
@@ -83,7 +84,6 @@ func apply_jump():
 
 func jump_check():
 	if is_on_floor() and is_falling:
-		if is_jumping: velocity.x = 0
 		is_jumping = false
 		jumps_done = 0
 		coyote_time.stop()
@@ -99,3 +99,10 @@ func discard_jump_input():
 
 func coyote_timeout():
 	jumps_done += 1
+
+func change_velocity():
+	if stored_velocity_change == Vector2.ZERO:
+		return
+	
+	velocity = stored_velocity_change
+	stored_velocity_change = Vector2.ZERO
